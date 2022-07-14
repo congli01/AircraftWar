@@ -1,0 +1,35 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface PlayerDao {
+    + {abstract} getAllPlayers(String path):List<Player>
+    + {abstract} addPlayer(String path, Player player):void
+    + {abstract} delete(String path, int i):void
+}
+
+class PlayerDaoImpl {
+    - players:List<Player>
+
+    + PlayerDaoImpl()
+    + getAllPlayers(String path):List<Player>
+    + addPlayer(String path, Player player):void
+    + deletePlayer(String path, int i):void
+}
+
+class Player {
+    - name:String;
+    - score:int
+    - date:String
+
+    + Player(String name, int score, String date):void
+    + getName():String
+    + getScore():int
+    + getDate():String
+    + toString():void
+}
+
+PlayerDao <|...PlayerDaoImpl
+PlayerDao <.left. SimpleTable
+Player <-right- PlayerDaoImpl
+
+@enduml

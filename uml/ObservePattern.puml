@@ -1,0 +1,43 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Game
+
+class BombProp {
+    - bombReactors:List<BombReactor>
+
+    + BombProp (int locationX, int locationY, int speedX, int speedY)
+    + addBombReactor(BombReactor bombReactor):void
+    + removeBombReactor(BombReactor bombReactor):void
+    + func():void
+}
+
+interface BombReactor {
+    + {abstract} bombReact():void
+}
+
+class BaseEnemy {
+    + bombReact():void
+}
+
+class CommonEnemy
+
+class EliteEnemy
+
+class Boss {
+    + bombReact():void
+}
+
+class EnemyBullet {
+    + bombReact():void
+}
+
+Game ..> BombProp
+BombProp o--> BombReactor
+BombReactor <|.. BaseEnemy
+BombReactor <|.. EnemyBullet
+BaseEnemy <|-- CommonEnemy
+BaseEnemy <|-- EliteEnemy
+BaseEnemy <|-- Boss
+
+@enduml

@@ -1,0 +1,60 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface PropFunc {
+    + {abstract} func():void
+}
+
+class BloodProp {
+    + func():void
+}
+
+class BombProp {
+    + func():void
+}
+
+class BulletProp {
+    + func():void
+}
+
+PropFunc <|.. BloodProp
+PropFunc <|.. BombProp
+PropFunc <|.. BulletProp
+
+interface PropFactory {
+    + {abstract} creatProp():BaseProp
+}
+
+class BloodPropFactory {
+    + creatProp():BaseProp
+}
+
+class BombPropFactoty {
+    + creatProp():BaseProp
+}
+
+class BulletPropFactory {
+    + creatProp():BaseProp
+}
+
+PropFactory <|.up. BloodPropFactory
+PropFactory <|.up. BombPropFactoty
+PropFactory <|.up. BulletPropFactory
+
+BloodProp <.. BloodPropFactory
+BombProp <.. BombPropFactoty
+BulletProp <.. BulletPropFactory
+
+class BaseProp {
+    + BaseProp(int locationX, int locationY, int speedX, int speedY)
+    + forward():void
+}
+
+BaseProp <|--- BloodProp
+BaseProp <|--- BombProp
+BaseProp <|--- BulletProp
+
+Game .down.> BaseProp
+Game .down.> PropFactory
+
+@enduml

@@ -1,0 +1,74 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class BaseEnemy {
+    + BaseEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
+    + shoot():List<BaseBullet>
+    + {abstract} createProp():BaseProp
+    + bombReact():void
+    + unSubed():boolean
+}
+
+class CommonEnemy {
+    + CommonEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
+    + forward():void
+
+}
+
+class EliteEnemy {
+    - shootNum:int
+    - power:int
+    - direction:int
+
+    + EliteEnemy(int locationX, int locationY, int speedX, int speedY, int hp, ShootStrategy shootStrategy):void
+    + shoot():List<BaseBullet>
+    + createProp():BaseProp
+
+}
+
+class Boss {
+    - shootNum:int
+    - power:int
+    - direction:int
+
+    + Boss(int locationX, int locationY, int speedX, int speedY, int hp, ShootStrategy shootStrategy)
+    + shoot():List<Bullet>
+    + bombReact():void
+}
+
+BaseEnemy <|.. CommonEnemy
+BaseEnemy <|.. EliteEnemy
+BaseEnemy <|.. Boss
+
+interface EnemyFactory {
+    + {abstract} creatEnemy():BaseEnemy
+}
+
+class CommonFactory {
+    + creatEnemy():BaseEnemy
+}
+
+class EliteFactory {
+    + creatEnemy():BaseEnemy
+}
+
+class BossFactory {
+    + creatEnemy():BaseEnemy
+}
+
+EnemyFactory <|.up. CommonFactory
+EnemyFactory <|.up. EliteFactory
+EnemyFactory <|.up. BossFactory
+
+CommonEnemy <.. CommonFactory
+EliteEnemy <.. EliteFactory
+Boss <.. BossFactory
+
+class Game {
+
+}
+
+Game .down.> EnemyFactory
+Game .down.> BaseEnemy
+
+@enduml

@@ -1,0 +1,73 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class main
+
+abstract class Game {
+    # backGroundTop:int
+    # image:Image
+    # rate:int
+    # executorService:ScheduledExecutorService
+    # timeInterval:int
+    # heroAircraft:HeroAircraft
+    # baseEnemies:List<BaseEnemy>
+    # heroBullets:List<BaseBullet>
+    # baseProps:List<BaseProp>
+    # bombReactors:List<BombReactor>
+    # enemyMaxNumber:int
+    # gameOverFlag:boolean
+    # score:int
+    # time:int
+    # cycleDuration:int
+    # cycTime:int
+    # threshhold:int
+    # dscore:int
+    # boss:BaseEnemy
+    # bgmBoss:MusicThread
+
+    + Game()
+    + action():void
+    # timeCountAndNewCycleJudge():boolean
+    #{abstract} generateEnemies():void
+    # shootAction():List<BaseBullet>
+    # bulletsMoveAction():void
+    # aircraftsMoveAction():void
+    # propsMoveAction():void
+    # crashCheckAction():void
+    # postProcessAction():void
+    + paint(Graphics g):void
+    # paintImageWithPositionRevised(Graphics g, List<? extends AbstractFlyingObject> objects):void
+    # paintScoreAndLife(Graphics g):void
+    # checkGameStatus():void
+    + getScore():int
+    # bgmBossControllor():void
+}
+
+class EasyGame {
+    + EasyGame()
+    + generateEnemies():void
+}
+
+class RegularGame {
+    - addDifficultyFlag:int
+
+    + RegularGame()
+    + generateEnemies():void
+    - addDifficulty():void
+}
+
+class DifficultGame {
+    - addDifficultyFlag:int
+    - bossCreateTime:int
+
+    + DifficultGame()
+    + generateEnemies():void
+    - addDifficulty():void
+}
+
+Game <.up. main
+Game <|-- EasyGame
+Game <|-- RegularGame
+Game <|-- DifficultGame
+
+@enduml

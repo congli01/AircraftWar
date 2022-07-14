@@ -1,0 +1,32 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface ShootStrategy {
+    + {abstract}shoot():List<BaseBullet>
+}
+
+ShootStrategy <|.. Direct
+class Direct {
+    + shoot():List<BaseBullet>
+}
+
+ShootStrategy <|.. Scatter
+class Scatter {
+    + shoot():List<BaseBullet>
+}
+
+Game ..> AbstractAircraft
+class AbstractAircraft {
+    # shootNum
+    # power
+    # direction
+    # shootStrategy:ShootStrategy
+    + {abstract} shoot():List.<BaseBullet>
+    + setShootStrategy:void
+}
+
+ShootStrategy <-up-o AbstractAircraft
+
+
+
+@enduml
